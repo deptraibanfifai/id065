@@ -1,76 +1,138 @@
 <!DOCTYPE html>
-<html lang="vi">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Follow đi </title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            text-align: center;
-            padding: 50px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        a {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #4CAF50;
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 18px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        a:hover {
-            background-color: #45a049;
-        }
-
-        .audio-player {
-            margin-top: 30px;
-        }
-
-        .image {
-            margin-top: 100px;
-        }
-    </style>
+    <title>Goodbye </title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #eee7e7;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .slider-container {
+        position: relative;
+        width: 80%; /* Đảm bảo bộ trượt vừa phải */
+        max-width: 1000px; /* Giới hạn kích thước tối đa */
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .slider {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+
+    .slider img {
+        width: 100%; /* Mỗi ảnh chiếm toàn bộ chiều rộng của slider */
+        height: 100%; /* Đảm bảo ảnh có chiều cao đồng đều */
+        object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+    }
+
+    button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
+        font-size: 18px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1; /* Đảm bảo nút có thể nhấn được trên bộ trượt */
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+    /* Audio - Ẩn thanh tiến trình */
+    audio {
+        display: none; /* Ẩn thanh tiến trình của audio */
+    }
+
+</style>
 
 <body>
-
-    <div class="container">
-        <h1> link dẫn đến ytb thoi </h1>
-        <p> nhạc chill chill  </p>
-
-        <!-- Chèn hình ảnh haha.jpg -->
-        <div class="image">
-            <img src="yeuem.jpg" alt="Xinh" width="300">
-        </div>
-
-        <a href="https://youtu.be/sJt_i0hOugA?si=LGhA9WNXPkKondhv" target="_blank"> hiu thu 2 </a>
-        <br>
-        <a href="https://youtu.be/qRuSS93OEfw?si=FAdVWqsMO9BUekz4" target="_blank"> tran bo nho </a>
-
-        <!-- Thêm phần chèn nhạc -->
-        <div class="audio-player">
-            <audio controls autoplay>
-                <source src="./re.mp3" type="audio/mp3">
-                Trình duyệt của bạn không hỗ trợ phát âm thanh.
-            </audio>
-        </div>
+    <!-- Trình phát nhạc -->
+    <div class="audio-player">
+        <audio id="myAudio" controls>
+            <source src="thienthao.mp3" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ thẻ audio.
+        </audio>
     </div>
 
-</body>
+    <div class="slider-container">
+        <div class="slider">
+            <!-- Các hình ảnh trong bộ trượt -->
+            <img src="./ảnh/1.jpg" alt="Gambar 1">
+            <img src="/ảnh/3.jpg" alt="Gambar 3">
+            <img src="/ảnh/4.jpg" alt="Gambar 4">
+            <img src="/ảnh/5.jpg" alt="Gambar 5">
+            <img src="/ảnh/6.jpg" alt="Gambar 6">
+            <img src="/ảnh/7.jpg" alt="Gambar 7">
+        </div>
 
+        <!-- Nút chuyển slide -->
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
+
+    
+</body><script>
+        // Hàm phát nhạc khi người dùng di chuột
+        function playAudio() {
+            let audio = document.getElementById("myAudio");
+            audio.play().then(() => {
+                console.log("Nhạc đã phát!");
+                document.removeEventListener("mousemove", playAudio); // Xóa sự kiện sau khi phát
+            }).catch(error => console.log("Trình duyệt chặn autoplay:", error));
+        }
+
+        // Thêm sự kiện di chuột để phát nhạc
+        document.addEventListener("mousemove", playAudio);
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slider img');
+        const totalSlides = slides.length;
+
+        // Hàm cập nhật vị trí của bộ trượt
+        function updateSliderPosition() {
+            const slider = document.querySelector('.slider');
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Hàm chuyển đến ảnh tiếp theo
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; // Quay lại ảnh đầu tiên khi đến ảnh cuối
+            updateSliderPosition();
+        }
+
+        // Chức năng của nút "Tiếp theo"
+        document.querySelector('.next').addEventListener('click', function() {
+            nextSlide();
+        });
+
+        // Chức năng của nút "Trước"
+        document.querySelector('.prev').addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; // Quay lại ảnh cuối cùng khi đến ảnh đầu
+            updateSliderPosition();
+        });
+
+        // Tự động chuyển ảnh mỗi 3 giây
+        setInterval(nextSlide, 3000); // Thay đổi ảnh mỗi 3000ms (3 giây)
+    </script>
 </html>
