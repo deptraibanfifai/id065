@@ -79,12 +79,12 @@
     <div class="slider-container">
         <div class="slider">
             <!-- Các hình ảnh trong bộ trượt -->
-            <img src="1.jpg." alt="Gambar 1">
-            <img src="3.jpg." alt="Gambar 3">
-            <img src="4.jpg." alt="Gambar 4">
-            <img src="5.jpg." alt="Gambar 5">
-            <img src="6.jpg." alt="Gambar 6">
-            <img src="7.jpg." alt="Gambar 7">
+            <img src="1.jpg" alt="Gambar 1">
+            <img src="3.jpg" alt="Gambar 3">
+            <img src="4.jpg" alt="Gambar 4">
+            <img src="5.jpg" alt="Gambar 5">
+            <img src="6.jpg" alt="Gambar 6">
+            <img src="7.jpg" alt="Gambar 7">
         </div>
 
         <!-- Nút chuyển slide -->
@@ -96,9 +96,9 @@
 </body><script>
         // Hàm phát nhạc khi người dùng di chuột
         function playAudio() {
-            let audio = document.getElementById("myAudio");
-            audio.play().then(() => {
-                console.log("Nhạc đã phát!");
+            let audio = documentgetElementById("myAudio");
+            audioplay()then(() => {
+                consolelog("Nhạc đã phát!");
                 document.removeEventListener("mousemove", playAudio); // Xóa sự kiện sau khi phát
             }).catch(error => console.log("Trình duyệt chặn autoplay:", error));
         }
